@@ -1,1979 +1,786 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduCenter — O'quv Markaz</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap"
-    rel="stylesheet">
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
-
-    :root {
-      --bg: #080c14;
-      --card: #0e1520;
-      --card2: #131d2e;
-      --border: #1e2d42;
-      --border2: #243549;
-      --gold: #f0a500;
-      --gold2: #ffc233;
-      --primary: #3b82f6;
-      --primary2: #60a5fa;
-      --success: #10b981;
-      --danger: #ef4444;
-      --warn: #f59e0b;
-      --text: #e8f0fe;
-      --muted: #5a7394;
-      --muted2: #8aa6c4;
-      --r: 14px;
-      --rs: 8px;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden
-    }
-
-    ::-webkit-scrollbar {
-      width: 5px
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg)
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--border2);
-      border-radius: 3px
-    }
-
-    /* ── LOGIN ── */
-    #login-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(ellipse 80% 60% at 50% -10%, #0a1f3f 0%, var(--bg) 70%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #login-page::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 80% 80%, rgba(240, 165, 0, .06) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .login-box {
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 24px;
-      padding: 48px 44px;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 32px 80px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .03);
-      position: relative;
-      z-index: 1;
-    }
-
-    .l-logo {
-      text-align: center;
-      margin-bottom: 36px
-    }
-
-    .l-logo .gem {
-      font-size: 52px;
-      display: block;
-      margin-bottom: 14px;
-      filter: drop-shadow(0 0 20px rgba(240, 165, 0, .6))
-    }
-
-    .l-logo h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: 30px;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #f0a500, #ffc233, #fff8e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text
-    }
-
-    .l-logo p {
-      color: var(--muted2);
-      font-size: 13px;
-      margin-top: 5px
-    }
-
-    .fl {
-      margin-bottom: 18px
-    }
-
-    .fl label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted2);
-      margin-bottom: 7px;
-      text-transform: uppercase;
-      letter-spacing: .6px
-    }
-
-    .fl input,
-    .fl select,
-    .fl textarea {
-      width: 100%;
-      background: #0a111c;
-      border: 1px solid var(--border2);
-      border-radius: var(--rs);
-      padding: 13px 15px;
-      color: var(--text);
-      font-size: 15px;
-      font-family: inherit;
-      outline: none;
-      transition: .2s;
-    }
-
-    .fl input:focus,
-    .fl select:focus,
-    .fl textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(240, 165, 0, .12)
-    }
-
-    .fl select option {
-      background: #0a111c
-    }
-
-    .fl textarea {
-      resize: vertical;
-      min-height: 80px
-    }
-
-    .err {
-      color: var(--danger);
-      font-size: 13px;
-      margin-top: 8px;
-      display: none
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: var(--rs);
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      transition: .18s;
-    }
-
-    .btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-1px)
-    }
-
-    .btn:active {
-      transform: scale(.98);
-      filter: none
-    }
-
-    .btn:disabled {
-      opacity: .4;
-      cursor: not-allowed;
-      transform: none !important;
-      filter: none !important
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      color: #1a0f00
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #1d4ed8, var(--primary));
-      color: #fff
-    }
-
-    .btn-success {
-      background: var(--success);
-      color: #fff
-    }
-
-    .btn-danger {
-      background: var(--danger);
-      color: #fff
-    }
-
-    .btn-ghost {
-      background: var(--card2);
-      color: var(--text);
-      border: 1px solid var(--border2)
-    }
-
-    .btn-full {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      border-radius: 10px;
-      margin-top: 6px
-    }
-
-    .btn-sm {
-      padding: 8px 14px;
-      font-size: 13px
-    }
-
-    /* ── APP ── */
-    #app-page {
-      display: none;
-      min-height: 100vh
-    }
-
-    #app-page.show {
-      display: flex
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 230px;
-      min-height: 100vh;
-      background: var(--card);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      overflow-y: auto;
-      z-index: 100;
-    }
-
-    .sb-head {
-      padding: 22px 18px 16px;
-      border-bottom: 1px solid var(--border)
-    }
-
-    .sb-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px
-    }
-
-    .sb-brand .ico {
-      font-size: 26px;
-      filter: drop-shadow(0 0 10px rgba(240, 165, 0, .5))
-    }
-
-    .sb-brand .name {
-      font-family: 'Syne', sans-serif;
-      font-size: 17px;
-      letter-spacing: -.5px;
-      background: linear-gradient(135deg, #f0a500, #ffc233);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text
-    }
-
-    .user-pill {
-      background: #0a111c;
-      border: 1px solid var(--border2);
-      border-radius: 10px;
-      padding: 11px 13px;
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .u-av {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 800;
-      color: #fff;
-      flex-shrink: 0
-    }
-
-    .u-name {
-      font-size: 14px;
-      font-weight: 700
-    }
-
-    .u-role {
-      font-size: 11px;
-      color: var(--muted2)
-    }
-
-    .coin-pill {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 10px;
-      background: rgba(240, 165, 0, .08);
-      border: 1px solid rgba(240, 165, 0, .2);
-      border-radius: 20px;
-      padding: 6px 13px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--gold);
-      width: fit-content;
-    }
-
-    .sb-nav {
-      padding: 14px 10px;
-      flex: 1
-    }
-
-    .nav-i {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 10px 13px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: .15s;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted2);
-      margin-bottom: 3px;
-      position: relative;
-    }
-
-    .nav-i:hover {
-      background: var(--card2);
-      color: var(--text)
-    }
-
-    .nav-i.active {
-      background: rgba(59, 130, 246, .12);
-      color: var(--primary2);
-      border: 1px solid rgba(59, 130, 246, .2)
-    }
-
-    .nav-i .ni {
-      font-size: 17px;
-      width: 22px;
-      text-align: center
-    }
-
-    .nbadge {
-      background: var(--danger);
-      color: #fff;
-      border-radius: 10px;
-      padding: 2px 7px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-left: auto
-    }
-
-    /* MAIN */
-    .main {
-      margin-left: 230px;
-      flex: 1;
-      padding: 30px 36px;
-      min-height: 100vh
-    }
-
-    .sec {
-      display: none
-    }
-
-    .sec.active {
-      display: block
-    }
-
-    .sec-hd {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 26px
-    }
-
-    .sec-ti {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      letter-spacing: -.5px;
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    /* CARDS */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px
-    }
-
-    .card+.card {
-      margin-top: 18px
-    }
-
-    .card-ti {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .8px;
-      margin-bottom: 16px
-    }
-
-    /* STATS */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px
-    }
-
-    .stat {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 18px;
-      text-align: center
-    }
-
-    .stat .si {
-      font-size: 28px;
-      margin-bottom: 6px
-    }
-
-    .stat .sv {
-      font-size: 26px;
-      font-weight: 800;
-      font-family: 'Syne', sans-serif
-    }
-
-    .stat .sl {
-      font-size: 11px;
-      color: var(--muted2);
-      margin-top: 3px
-    }
-
-    /* TABLE */
-    .tbl {
-      width: 100%;
-      border-collapse: collapse
-    }
-
-    .tbl th,
-    .tbl td {
-      padding: 11px 15px;
-      text-align: left;
-      border-bottom: 1px solid var(--border)
-    }
-
-    .tbl th {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .6px
-    }
-
-    .tbl td {
-      font-size: 13px
-    }
-
-    .tbl tr:last-child td {
-      border-bottom: none
-    }
-
-    .tbl tr:hover td {
-      background: rgba(255, 255, 255, .015)
-    }
-
-    /* BADGES */
-    .badge2 {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700
-    }
-
-    .b-green {
-      background: rgba(16, 185, 129, .12);
-      color: var(--success)
-    }
-
-    .b-red {
-      background: rgba(239, 68, 68, .12);
-      color: var(--danger)
-    }
-
-    .b-yellow {
-      background: rgba(240, 165, 0, .12);
-      color: var(--gold)
-    }
-
-    .b-blue {
-      background: rgba(59, 130, 246, .12);
-      color: var(--primary2)
-    }
-
-    .b-grey {
-      background: rgba(90, 115, 148, .1);
-      color: var(--muted2)
-    }
-
-    /* ATTENDANCE GRID */
-    .att-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 14px
-    }
-
-    .att-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 18px
-    }
-
-    .att-name {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 14px
-    }
-
-    .att-btns {
-      display: flex;
-      gap: 9px
-    }
-
-    .att-btns .btn {
-      flex: 1
-    }
-
-    /* MARKET */
-    .mkt-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 18px
-    }
-
-    .mkt-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px;
-      text-align: center;
-      transition: .2s;
-    }
-
-    .mkt-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .3)
-    }
-
-    .mkt-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-      display: block
-    }
-
-    .mkt-name {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 8px
-    }
-
-    .mkt-price {
-      color: var(--gold);
-      font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 6px
-    }
-
-    .mkt-stock {
-      font-size: 11px;
-      color: var(--muted2);
-      margin-bottom: 14px
-    }
-
-    /* TASK CARDS */
-    .task-c {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 20px;
-      margin-bottom: 14px;
-      transition: .2s
-    }
-
-    .task-c:hover {
-      border-color: var(--border2)
-    }
-
-    .task-hd {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 10px
-    }
-
-    .task-title {
-      font-size: 15px;
-      font-weight: 700
-    }
-
-    .task-sub {
-      font-size: 12px;
-      color: var(--muted2);
-      margin-top: 3px
-    }
-
-    .task-desc {
-      font-size: 13px;
-      color: var(--muted2);
-      margin-bottom: 14px;
-      line-height: 1.6
-    }
-
-    .task-ft {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 9px
-    }
-
-    /* NOTIFICATIONS */
-    .notif-i {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      padding: 14px 16px;
-      border-radius: 10px;
-      background: var(--card2);
-      margin-bottom: 9px;
-      transition: .15s;
-    }
-
-    .notif-i.unread {
-      background: rgba(59, 130, 246, .07);
-      border-left: 3px solid var(--primary)
-    }
-
-    .notif-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--primary);
-      flex-shrink: 0;
-      margin-top: 5px
-    }
-
-    .notif-txt {
-      font-size: 13px;
-      line-height: 1.5;
-      flex: 1
-    }
-
-    .notif-time {
-      font-size: 11px;
-      color: var(--muted)
-    }
-
-    /* SPIN WHEEL */
-    .wheel-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 22px;
-      padding-bottom: 30px
-    }
-
-    .wheel-rel {
-      position: relative;
-      display: inline-block
-    }
-
-    .wheel-ptr {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 36px;
-      z-index: 10;
-      filter: drop-shadow(0 4px 12px rgba(240, 165, 0, .8));
-      animation: ptr-pulse 1.5s ease-in-out infinite
-    }
-
-    @keyframes ptr-pulse {
-
-      0%,
-      100% {
-        filter: drop-shadow(0 4px 12px rgba(240, 165, 0, .6))
-      }
-
-      50% {
-        filter: drop-shadow(0 4px 20px rgba(240, 165, 0, 1))
-      }
-    }
-
-    #wheelCanvas {
-      border-radius: 50%;
-      box-shadow: 0 0 0 6px var(--border2), 0 0 60px rgba(59, 130, 246, .2), 0 16px 60px rgba(0, 0, 0, .6)
-    }
-
-    .spin-meta {
-      text-align: center
-    }
-
-    .spin-ct {
-      font-size: 14px;
-      color: var(--muted2);
-      margin-bottom: 5px
-    }
-
-    .spin-coins-meta {
-      font-size: 13px;
-      color: var(--gold)
-    }
-
-    .spin-res {
-      text-align: center;
-      min-height: 70px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center
-    }
-
-    .spin-win {
-      font-family: 'Syne', sans-serif;
-      font-size: 42px;
-      background: linear-gradient(135deg, var(--gold), #fff8e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: win-pop .4s cubic-bezier(.34, 1.56, .64, 1)
-    }
-
-    @keyframes win-pop {
-      from {
-        transform: scale(0);
-        opacity: 0
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1
-      }
-    }
-
-    .hist-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border)
-    }
-
-    .hist-row:last-child {
-      border-bottom: none
-    }
-
-    /* MODAL */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .75);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px
-    }
-
-    .overlay.show {
-      display: flex
-    }
-
-    .modal {
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 22px;
-      padding: 30px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, .6);
-      animation: modal-in .2s cubic-bezier(.34, 1.56, .64, 1)
-    }
-
-    @keyframes modal-in {
-      from {
-        transform: scale(.88);
-        opacity: 0
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1
-      }
-    }
-
-    .modal-wide {
-      max-width: 600px
-    }
-
-    .m-hd {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px
-    }
-
-    .m-ti {
-      font-family: 'Syne', sans-serif;
-      font-size: 19px;
-      letter-spacing: -.3px
-    }
-
-    .m-close {
-      background: var(--card2);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: .15s
-    }
-
-    .m-close:hover {
-      background: var(--danger);
-      border-color: var(--danger)
-    }
-
-    .m-row {
-      display: flex;
-      gap: 11px;
-      margin-top: 14px
-    }
-
-    .m-row .btn {
-      flex: 1
-    }
-
-    /* PHOTO */
-    .photo-preview {
-      max-width: 100%;
-      max-height: 220px;
-      border-radius: 10px;
-      margin-top: 10px;
-      display: none;
-      object-fit: cover
-    }
-
-    /* EMPTY */
-    .empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted2)
-    }
-
-    .empty .ei {
-      font-size: 44px;
-      margin-bottom: 14px
-    }
-
-    .empty p {
-      font-size: 15px
-    }
-
-    /* DIVIDER */
-    .div {
-      height: 1px;
-      background: var(--border);
-      margin: 18px 0
-    }
-
-    /* FILE INPUT */
-    input[type="file"] {
-      color: var(--muted2);
-      font-size: 13px
-    }
-
-    input[type="file"]::file-selector-button {
-      background: var(--card2);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: var(--rs);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 13px;
-      margin-right: 12px;
-      transition: .15s;
-    }
-
-    input[type="file"]::file-selector-button:hover {
-      border-color: var(--gold);
-      color: var(--gold)
-    }
-
-    /* TOAST */
-    .toast-c {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 8px
-    }
-
-    .toast {
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 10px;
-      padding: 13px 17px;
-      font-size: 13px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .4);
-      animation: toast-in .3s cubic-bezier(.34, 1.56, .64, 1);
-      max-width: 300px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .t-ok {
-      border-left: 4px solid var(--success)
-    }
-
-    .t-err {
-      border-left: 4px solid var(--danger)
-    }
-
-    .t-info {
-      border-left: 4px solid var(--primary)
-    }
-
-    .t-gold {
-      border-left: 4px solid var(--gold)
-    }
-
-    @keyframes toast-in {
-      from {
-        transform: translateX(110%);
-        opacity: 0
-      }
-
-      to {
-        transform: translateX(0);
-        opacity: 1
-      }
-    }
-
-    /* SOZLAMALAR */
-    .settings-card {
-      max-width: 460px
-    }
-
-    .profile-pic {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0 auto 22px
-    }
-
-    /* HINT */
-    .hint {
-      background: rgba(59, 130, 246, .06);
-      border: 1px solid rgba(59, 130, 246, .15);
-      border-radius: 8px;
-      padding: 11px 14px;
-      font-size: 12px;
-      color: var(--muted2);
-      margin-top: 20px;
-      line-height: 1.7
-    }
-
-    .hint b {
-      color: var(--primary2)
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GALEREYA — Rasmlar & Videolar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #c8a96e;
+    --accent2: #7b68ee;
+    --text: #e8e6f0;
+    --muted: #6b6880;
+    --danger: #e05c5c;
+    --success: #5ce08a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: var(--text);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .stats-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+  }
+
+  /* Upload zone */
+  .upload-section {
+    padding: 48px 40px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .drop-zone {
+    border: 1.5px dashed var(--border);
+    border-radius: 16px;
+    padding: 56px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .drop-zone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 100%, rgba(200,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .drop-zone:hover, .drop-zone.dragging {
+    border-color: var(--accent);
+    background: rgba(200,169,110,0.04);
+    transform: scale(1.005);
+  }
+
+  .drop-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+    filter: grayscale(0.3);
+  }
+
+  .drop-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .drop-sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0a0a0f;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .upload-btn:hover {
+    background: #d4b87a;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(200,169,110,0.3);
+  }
+
+  #fileInput { display: none; }
+
+  /* Filter bar */
+  .filter-bar {
+    padding: 0 40px 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,169,110,0.08);
+  }
+
+  .search-box {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
+
+  .search-box input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    width: 180px;
+  }
+
+  .search-box input::placeholder { color: var(--muted); }
+
+  /* Gallery grid */
+  .gallery-section {
+    padding: 0 40px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* Media card */
+  .media-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeUp 0.4s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    position: relative;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .media-card:hover {
+    border-color: rgba(200,169,110,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .media-thumb {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: var(--surface);
+  }
+
+  .media-thumb-video {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: var(--surface);
+  }
+
+  .media-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+  }
+
+  .badge-image { background: rgba(91,184,255,0.25); color: #5bb8ff; border: 1px solid rgba(91,184,255,0.3); }
+  .badge-video { background: rgba(200,169,110,0.25); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+
+  .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .media-card:hover .card-actions { opacity: 1; }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+  }
+
+  .btn-view { background: rgba(255,255,255,0.15); color: #fff; }
+  .btn-delete { background: rgba(224,92,92,0.2); color: var(--danger); }
+  .btn-download { background: rgba(92,224,138,0.2); color: var(--success); }
+
+  .action-btn:hover { transform: scale(1.1); }
+
+  .card-info {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-size {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .card-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* Empty state */
+  .empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 80px 40px;
+  }
+
+  .empty-state .empty-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+    opacity: 0.4;
+  }
+
+  .empty-state h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  .empty-state p {
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lightbox-media {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  .lightbox-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text);
+    z-index: 900;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 300px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-color: rgba(92,224,138,0.3); }
+  .toast.error { border-color: rgba(224,92,92,0.3); }
+
+  /* Divider line */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 40px 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .divider-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--text);
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .divider-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 0 20px; }
+    .upload-section, .filter-bar, .gallery-section, .section-divider { padding-left: 20px; padding-right: 20px; }
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+    .drop-zone { padding: 36px 20px; }
+    .drop-title { font-size: 20px; }
+    .search-box { width: 100%; }
+    .search-box input { width: 100%; }
+    .filter-bar { gap: 8px; }
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- ════════════ LOGIN ════════════ -->
-  <div id="login-page">
-    <div class="login-box">
-      <div class="l-logo">
-        <span class="gem">🏆</span>
-        <h1>EduCenter</h1>
-        <p>O'quv markaz boshqaruv tizimi</p>
-      </div>
-      <div class="fl">
-        <label>Foydalanuvchi nomi</label>
-        <input type="text" id="l-user" placeholder="username..." autocomplete="off"
-          onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
-      <div class="fl">
-        <label>Parol</label>
-        <input type="password" id="l-pass" placeholder="parol..." onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
-      <p id="l-err" class="err">❌ Username yoki parol noto'g'ri!</p>
-      <button class="btn btn-gold btn-full" onclick="doLogin()">🚀 Kirish</button>
-      <div class="hint">
-    
-        <b>👨‍🎓 Asadbek:</b> asadbek / Admin123<br>
-        <b>👨‍🎓 Firdavs:</b> firdavs / Admin123
-      </div>
+<header>
+  <div class="logo">GALEREYA <span>·</span></div>
+  <div class="header-right">
+    <div class="stats-pill" id="statsLabel">0 ta media</div>
+  </div>
+</header>
+
+<div class="upload-section">
+  <div class="section-label">// Yuklash</div>
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-icon">🖼️</span>
+    <h2 class="drop-title">Rasm yoki Video yuklang</h2>
+    <p class="drop-sub">Fayllarni bu yerga tashlang yoki pastdagi tugmani bosing<br>JPG, PNG, GIF, WebP, MP4, MOV, WebM va boshqalar qabul qilinadi</p>
+    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+      ＋ Fayl tanlash
+    </button>
+    <input type="file" id="fileInput" multiple accept="image/*,video/*">
+  </div>
+</div>
+
+<div class="section-divider">
+  <h2 class="divider-title">Galereya</h2>
+  <div class="divider-line"></div>
+  <div class="divider-count" id="mediaCount">0 TA ELEMENT</div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Barchasi</button>
+  <button class="filter-btn" data-filter="image">📷 Rasmlar</button>
+  <button class="filter-btn" data-filter="video">🎬 Videolar</button>
+  <div class="search-box">
+    <span style="color:var(--muted);font-size:13px">🔍</span>
+    <input type="text" id="searchInput" placeholder="Qidirish...">
+  </div>
+</div>
+
+<div class="gallery-section">
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="empty-state">
+      <span class="empty-icon">✨</span>
+      <h3>Galereya bo'sh</h3>
+      <p>Rasmlar va videolar qo'shish uchun yuqoridagi zonaga tashlang</p>
     </div>
   </div>
+</div>
 
-  <!-- ════════════ APP ════════════ -->
-  <div id="app-page">
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sb-head">
-        <div class="sb-brand"><span class="ico">🏆</span><span class="name">EduCenter</span></div>
-        <div class="user-pill">
-          <div class="u-av" id="sb-av">A</div>
-          <div>
-            <div class="u-name" id="sb-name">-</div>
-            <div class="u-role" id="sb-role">-</div>
-          </div>
-        </div>
-        <div class="coin-pill" id="sb-coins">🪙 <span id="sb-cv">0</span> coin</div>
-      </div>
-      <nav class="sb-nav" id="sb-nav"></nav>
-    </div>
-
-    <!-- MAIN -->
-    <div class="main">
-
-      <!-- DAVOMAT -->
-      <div id="sec-davomat" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">📋 Davomat</h2>
-          <span id="today-lbl" style="color:var(--muted2);font-size:13px"></span>
-        </div>
-        <div id="davomat-body"></div>
-      </div>
-
-      <!-- VAZIFALAR -->
-      <div id="sec-vazifalar" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">📝 Vazifalar</h2>
-          <button class="btn btn-gold btn-sm" id="add-task-btn" onclick="openM('m-task')" style="display:none">➕
-            Vazifa</button>
-        </div>
-        <div id="vazifalar-body"></div>
-      </div>
-
-      <!-- O'QUVCHILAR -->
-      <div id="sec-oquvchilar" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">👥 O'quvchilar</h2>
-          <button class="btn btn-gold btn-sm" onclick="openM('m-student')">➕ O'quvchi</button>
-        </div>
-        <div id="oquvchilar-body"></div>
-      </div>
-
-      <!-- MARKET -->
-      <div id="sec-market" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">🛒 Market</h2>
-          <button class="btn btn-gold btn-sm" id="add-item-btn" onclick="openM('m-item')" style="display:none">➕
-            Mahsulot</button>
-        </div>
-        <div id="market-body"></div>
-      </div>
-
-      <!-- BARABAN -->
-      <div id="sec-baraban" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">🎡 Baraban</h2>
-        </div>
-        <div class="wheel-wrap">
-          <div class="spin-meta">
-            <div class="spin-ct" id="spin-ct">—</div>
-            <div class="spin-coins-meta" id="spin-cm">—</div>
-          </div>
-          <div class="wheel-rel">
-            <div class="wheel-ptr">▼</div>
-            <canvas id="wheelCanvas" width="310" height="310"></canvas>
-          </div>
-          <div class="spin-res" id="spin-res"></div>
-          <button class="btn btn-gold" id="spin-btn" onclick="doSpin()"
-            style="font-size:17px;padding:15px 50px;border-radius:50px;letter-spacing:.5px">🎰 AYLANTIR!</button>
-          <div id="spin-hist" style="width:100%;max-width:460px"></div>
-        </div>
-      </div>
-
-      <!-- BILDIRISHNOMALAR -->
-      <div id="sec-bildirishnomalar" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">🔔 Bildirishnomalar</h2>
-          <button class="btn btn-ghost btn-sm" onclick="markAllRead()">✓ Barchasini o'qi</button>
-        </div>
-        <div id="notif-body"></div>
-      </div>
-
-      <!-- SOZLAMALAR -->
-      <div id="sec-sozlamalar" class="sec">
-        <div class="sec-hd">
-          <h2 class="sec-ti">⚙️ Sozlamalar</h2>
-        </div>
-        <div id="sozlamalar-body"></div>
-      </div>
-
-    </div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <div id="lightboxContent"></div>
+    <div class="lightbox-name" id="lightboxName"></div>
   </div>
+</div>
 
-  <!-- ════════════ MODALS ════════════ -->
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span id="toastIcon">✓</span>
+  <span id="toastMsg">Muvaffaqiyatli</span>
+</div>
 
-  <!-- Vazifa qo'shish -->
-  <div class="overlay" id="m-task">
-    <div class="modal">
-      <div class="m-hd">
-        <h3 class="m-ti">📝 Vazifa qo'shish</h3><button class="m-close" onclick="closeM('m-task')">✕</button>
-      </div>
-      <div class="fl"><label>Sarlavha</label><input type="text" id="t-title" placeholder="Vazifa nomi..."></div>
-      <div class="fl"><label>Tavsif</label><textarea id="t-desc" placeholder="Batafsil..."></textarea></div>
-      <div class="fl"><label>O'quvchi</label><select id="t-who">
-          <option value="all">Barcha o'quvchilar</option>
-        </select></div>
-      <div class="fl"><label>Coin mukofoti</label><input type="number" id="t-coins" value="10" min="0"></div>
-      <div class="m-row">
-        <button class="btn btn-ghost" onclick="closeM('m-task')">Bekor</button>
-        <button class="btn btn-gold" onclick="addTask()">✅ Qo'shish</button>
-      </div>
-    </div>
-  </div>
+<script>
+  let mediaItems = [];
+  let activeFilter = 'all';
+  let searchQuery = '';
 
-  <!-- Rasm yuklash -->
-  <div class="overlay" id="m-submit">
-    <div class="modal">
-      <div class="m-hd">
-        <h3 class="m-ti">📸 Topshirish</h3><button class="m-close" onclick="closeM('m-submit')">✕</button>
-      </div>
-      <p id="sub-ti" style="color:var(--muted2);font-size:13px;margin-bottom:18px"></p>
-      <div class="fl"><label>Rasm tanlang</label><input type="file" id="sub-file" accept="image/*"
-          onchange="prevPhoto(this)"></div>
-      <img id="sub-prev" class="photo-preview">
-      <div class="m-row">
-        <button class="btn btn-ghost" onclick="closeM('m-submit')">Bekor</button>
-        <button class="btn btn-primary" onclick="submitTask()">📤 Topshirish</button>
-      </div>
-    </div>
-  </div>
+  // Load from localStorage
+  function loadFromStorage() {
+    try {
+      const saved = localStorage.getItem('galereya_items');
+      if (saved) {
+        mediaItems = JSON.parse(saved);
+        renderGallery();
+      }
+    } catch(e) {}
+  }
 
-  <!-- O'quvchi qo'shish -->
-  <div class="overlay" id="m-student">
-    <div class="modal">
-      <div class="m-hd">
-        <h3 class="m-ti">👤 O'quvchi qo'shish</h3><button class="m-close" onclick="closeM('m-student')">✕</button>
-      </div>
-      <div class="fl"><label>To'liq ismi</label><input type="text" id="s-name" placeholder="Ismi Familiyasi"></div>
-      <div class="fl"><label>Username</label><input type="text" id="s-user" placeholder="foydalanuvchi nomi"></div>
-      <div class="fl"><label>Parol</label><input type="password" id="s-pass" placeholder="parol..."></div>
-      <div class="m-row">
-        <button class="btn btn-ghost" onclick="closeM('m-student')">Bekor</button>
-        <button class="btn btn-gold" onclick="addStudent()">✅ Qo'shish</button>
-      </div>
-    </div>
-  </div>
+  function saveToStorage() {
+    try {
+      localStorage.setItem('galereya_items', JSON.stringify(mediaItems));
+    } catch(e) {
+      showToast('Xotira to\'lgan, ba\'zi fayllar saqlanmaydi', 'error');
+    }
+  }
 
-  <!-- Mahsulot qo'shish -->
-  <div class="overlay" id="m-item">
-    <div class="modal">
-      <div class="m-hd">
-        <h3 class="m-ti">🛒 Mahsulot qo'shish</h3><button class="m-close" onclick="closeM('m-item')">✕</button>
-      </div>
-      <div class="fl"><label>Nomi</label><input type="text" id="i-name" placeholder="Mahsulot nomi"></div>
-      <div class="fl"><label>Emoji ikonkasi</label><input type="text" id="i-icon" placeholder="🎧" maxlength="4"></div>
-      <div class="fl"><label>Narxi (coin)</label><input type="number" id="i-price" placeholder="500" min="1"></div>
-      <div class="fl"><label>Miqdori (dona)</label><input type="number" id="i-stock" value="5" min="1"></div>
-      <div class="m-row">
-        <button class="btn btn-ghost" onclick="closeM('m-item')">Bekor</button>
-        <button class="btn btn-gold" onclick="addItem()">✅ Qo'shish</button>
-      </div>
-    </div>
-  </div>
+  // File input handler
+  document.getElementById('fileInput').addEventListener('change', handleFiles);
 
-  <!-- Coin berish -->
-  <div class="overlay" id="m-coins">
-    <div class="modal">
-      <div class="m-hd">
-        <h3 class="m-ti">🪙 Coin berish</h3><button class="m-close" onclick="closeM('m-coins')">✕</button>
-      </div>
-      <p id="gc-name" style="font-size:16px;font-weight:700;margin-bottom:18px"></p>
-      <div class="fl"><label>Coin miqdori</label><input type="number" id="gc-amt" placeholder="50" min="1"></div>
-      <div class="m-row">
-        <button class="btn btn-ghost" onclick="closeM('m-coins')">Bekor</button>
-        <button class="btn btn-gold" onclick="giveCoins()">🪙 Berish</button>
-      </div>
-    </div>
-  </div>
+  // Drag and drop
+  const dropZone = document.getElementById('dropZone');
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragging');
+    handleFiles({ target: { files: e.dataTransfer.files } });
+  });
 
-  <!-- Rasm ko'rish -->
-  <div class="overlay" id="m-photo">
-    <div class="modal modal-wide">
-      <div class="m-hd">
-        <h3 class="m-ti">📸 Topshiriq rasmi</h3><button class="m-close" onclick="closeM('m-photo')">✕</button>
-      </div>
-      <div id="photo-body"></div>
-    </div>
-  </div>
+  function handleFiles(e) {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
 
-  <div class="toast-c" id="toasts"></div>
-
-  <script>
-    // ══════════════════════════════════
-    //  DATABASE
-    // ══════════════════════════════════
-    const KEY = 'edu_v3';
-    function db() {
-      const d = localStorage.getItem(KEY);
-      if (!d) {
-        const init = {
-          users: [
-            { id: 1, name: 'Admin', username: 'admin', password: '123', role: 'admin', coins: 0 },
-            { id: 2, name: 'Asadbek', username: 'asadbek', password: 'Admin123', role: 'student', coins: 0 },
-            { id: 3, name: 'Firdavs', username: 'firdavs', password: 'Admin123', role: 'student', coins: 0 }
-          ],
-          attendance: [],
-          tasks: [],
-          market: [
-            { id: 1, name: 'AirPods', price: 500, icon: '🎧', stock: 5 },
-            { id: 2, name: 'Klaviatura', price: 300, icon: '⌨️', stock: 3 },
-            { id: 3, name: 'Sichqoncha', price: 200, icon: '🖱️', stock: 4 }
-          ],
-          purchases: [],
-          spinHistory: [],
-          notifications: []
+    let loaded = 0;
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const item = {
+          id: Date.now() + Math.random(),
+          name: file.name,
+          type: file.type.startsWith('video') ? 'video' : 'image',
+          size: formatSize(file.size),
+          data: ev.target.result,
+          date: new Date().toLocaleDateString('uz-UZ', { day:'2-digit', month:'short', year:'numeric' }),
+          timestamp: Date.now()
         };
-        save(init); return init;
-      }
-      return JSON.parse(d);
-    }
-    function save(d) { localStorage.setItem(KEY, JSON.stringify(d)) }
-
-    // ══════════════════════════════════
-    //  STATE
-    // ══════════════════════════════════
-    let ME = null;
-    let GC_UID = null;
-    let SUB_TID = null;
-    let SPINNING = false;
-    let WROT = 0;
-
-    // ══════════════════════════════════
-    //  LOGIN / LOGOUT
-    // ══════════════════════════════════
-    function doLogin() {
-      const u = document.getElementById('l-user').value.trim();
-      const p = document.getElementById('l-pass').value;
-      const d = db();
-      const found = d.users.find(x => x.username === u && x.password === p);
-      if (!found) { document.getElementById('l-err').style.display = 'block'; return }
-      document.getElementById('l-err').style.display = 'none';
-      ME = found;
-      document.getElementById('login-page').style.display = 'none';
-      document.getElementById('app-page').classList.add('show');
-      initApp();
-    }
-    function logout() {
-      ME = null; SPINNING = false; WROT = 0;
-      document.getElementById('app-page').classList.remove('show');
-      document.getElementById('login-page').style.display = '';
-      document.getElementById('l-user').value = '';
-      document.getElementById('l-pass').value = '';
-    }
-    function refreshMe() {
-      const d = db();
-      ME = d.users.find(u => u.id === ME.id) || ME;
-    }
-
-    // ══════════════════════════════════
-    //  INIT
-    // ══════════════════════════════════
-    function initApp() {
-      buildNav();
-      updateSidebar();
-      go('davomat');
-      document.getElementById('today-lbl').textContent = fmtDate(new Date());
-    }
-    function updateSidebar() {
-      refreshMe();
-      document.getElementById('sb-av').textContent = ME.name[0].toUpperCase();
-      document.getElementById('sb-name').textContent = ME.name;
-      document.getElementById('sb-role').textContent = ME.role === 'admin' ? '👑 Admin' : '🎓 O\'quvchi';
-      document.getElementById('sb-cv').textContent = ME.coins;
-      document.getElementById('sb-coins').style.display = ME.role === 'admin' ? 'none' : 'flex';
-    }
-    function buildNav() {
-      const d = db();
-      const unread = d.notifications.filter(n => !n.read).length;
-      const adminNav = [
-        { id: 'davomat', i: '📋', l: 'Davomat' },
-        { id: 'vazifalar', i: '📝', l: 'Vazifalar' },
-        { id: 'oquvchilar', i: '👥', l: 'O\'quvchilar' },
-        { id: 'market', i: '🛒', l: 'Market' },
-        { id: 'baraban', i: '🎡', l: 'Baraban' },
-        { id: 'bildirishnomalar', i: '🔔', l: 'Bildirishnomalar', badge: unread },
-        { id: 'sozlamalar', i: '⚙️', l: 'Sozlamalar' },
-      ];
-      const stuNav = [
-        { id: 'davomat', i: '📋', l: 'Davomat' },
-        { id: 'vazifalar', i: '📝', l: 'Vazifalar' },
-        { id: 'market', i: '🛒', l: 'Market' },
-        { id: 'baraban', i: '🎡', l: 'Baraban' },
-        { id: 'sozlamalar', i: '⚙️', l: 'Sozlamalar' },
-      ];
-      const nav = ME.role === 'admin' ? adminNav : stuNav;
-      let h = nav.map(n => `
-    <div class="nav-i" id="ni-${n.id}" onclick="go('${n.id}')">
-      <span class="ni">${n.i}</span><span>${n.l}</span>
-      ${n.badge ? `<span class="nbadge" id="nbadge">${n.badge}</span>` : ''}
-    </div>
-  `).join('');
-      h += `<div style="height:1px;background:var(--border);margin:10px 3px"></div>
-    <div class="nav-i" onclick="logout()" style="color:var(--danger);margin-top:4px">
-      <span class="ni">🚪</span><span>Chiqish</span>
-    </div>`;
-      document.getElementById('sb-nav').innerHTML = h;
-    }
-    function go(sec) {
-      document.querySelectorAll('.nav-i').forEach(e => e.classList.remove('active'));
-      const ni = document.getElementById('ni-' + sec);
-      if (ni) ni.classList.add('active');
-      document.querySelectorAll('.sec').forEach(e => e.classList.remove('active'));
-      const s = document.getElementById('sec-' + sec);
-      if (s) s.classList.add('active');
-      render(sec);
-    }
-    function render(s) {
-      if (s === 'davomat') rDavomat();
-      else if (s === 'vazifalar') rVazifalar();
-      else if (s === 'oquvchilar') rOquvchilar();
-      else if (s === 'market') rMarket();
-      else if (s === 'baraban') rBaraban();
-      else if (s === 'bildirishnomalar') rNotif();
-      else if (s === 'sozlamalar') rSozlamalar();
-    }
-
-    // ══════════════════════════════════
-    //  DAVOMAT
-    // ══════════════════════════════════
-    function rDavomat() {
-      const d = db(); const today = tStr();
-      if (ME.role === 'admin') {
-        const studs = d.users.filter(u => u.role === 'student');
-        let h = `<div class="att-grid">`;
-        studs.forEach(s => {
-          const rec = d.attendance.find(a => a.sid === s.id && a.date === today);
-          h += `<div class="att-card">
-        <div class="att-name">
-          <div class="u-av" style="width:32px;height:32px;font-size:13px">${s.name[0]}</div>
-          ${s.name}
-          <span style="margin-left:auto">${rec ? `<span class="badge2 ${rec.st === 'keldi' ? 'b-green' : 'b-red'}">${rec.st === 'keldi' ? '✅ Keldi' : '🔴 Ketti'}</span>` : `<span class="badge2 b-grey">❓ Belgilanmagan</span>`}</span>
-        </div>
-        <div class="att-btns">
-          <button class="btn btn-success btn-sm" onclick="markAtt(${s.id},'keldi')">✅ Keldi</button>
-          <button class="btn btn-danger btn-sm" onclick="markAtt(${s.id},'ketti')">🔴 Ketti</button>
-        </div>
-      </div>`;
-        });
-        h += `</div><div class="card" style="margin-top:20px"><div class="card-ti">📅 Davomat tarixi</div>
-      <table class="tbl"><thead><tr><th>O'quvchi</th><th>Sana</th><th>Holat</th><th>Vaqt</th></tr></thead><tbody>`;
-        const sorted = [...d.attendance].sort((a, b) => new Date(b.ts) - new Date(a.ts));
-        if (!sorted.length) h += `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:30px">Hech qanday yozuv yo'q</td></tr>`;
-        else sorted.slice(0, 30).forEach(r => {
-          const stu = d.users.find(u => u.id === r.sid);
-          h += `<tr><td>${stu ? stu.name : '?'}</td><td>${r.date}</td>
-        <td><span class="badge2 ${r.st === 'keldi' ? 'b-green' : 'b-red'}">${r.st === 'keldi' ? '✅ Keldi' : '🔴 Ketti'}</span></td>
-        <td style="color:var(--muted)">${fmtTime(new Date(r.ts))}</td></tr>`;
-        });
-        h += `</tbody></table></div>`;
-        document.getElementById('davomat-body').innerHTML = h;
-      } else {
-        const my = d.attendance.filter(a => a.sid === ME.id).sort((a, b) => new Date(b.ts) - new Date(a.ts));
-        const todayR = my.find(a => a.date === today);
-        let h = `<div class="stats">
-      <div class="stat"><div class="si">✅</div><div class="sv">${my.filter(a => a.st === 'keldi').length}</div><div class="sl">Kelgan kunlar</div></div>
-      <div class="stat"><div class="si">📌</div><div class="sv">${todayR ? (todayR.st === 'keldi' ? '✅' : '🔴') : '❓'}</div><div class="sl">Bugun</div></div>
-    </div>
-    <div class="card"><div class="card-ti">Mening davomatim</div>
-      <table class="tbl"><thead><tr><th>Sana</th><th>Holat</th><th>Vaqt</th></tr></thead><tbody>`;
-        if (!my.length) h += `<tr><td colspan="3" style="text-align:center;color:var(--muted);padding:30px">Hali davomat belgilanmagan</td></tr>`;
-        else my.slice(0, 20).forEach(r => {
-          h += `<tr><td>${r.date}</td>
-        <td><span class="badge2 ${r.st === 'keldi' ? 'b-green' : 'b-red'}">${r.st === 'keldi' ? '✅ Keldi' : '🔴 Ketti'}</span></td>
-        <td style="color:var(--muted)">${fmtTime(new Date(r.ts))}</td></tr>`;
-        });
-        h += `</tbody></table></div>`;
-        document.getElementById('davomat-body').innerHTML = h;
-      }
-    }
-    function markAtt(sid, st) {
-      const d = db(); const today = tStr();
-      const idx = d.attendance.findIndex(a => a.sid === sid && a.date === today);
-      const rec = { sid, date: today, st, ts: new Date().toISOString() };
-      if (idx >= 0) d.attendance[idx] = rec; else d.attendance.push(rec);
-      save(d);
-      toast(st === 'keldi' ? '✅ Keldi deb belgilandi!' : '🔴 Ketti deb belgilandi!', 'ok');
-      rDavomat();
-    }
-
-    // ══════════════════════════════════
-    //  VAZIFALAR
-    // ══════════════════════════════════
-    function rVazifalar() {
-      const d = db();
-      const btn = document.getElementById('add-task-btn');
-      if (ME.role === 'admin') {
-        btn.style.display = 'flex';
-        // fill student select
-        const sel = document.getElementById('t-who');
-        sel.innerHTML = '<option value="all">Barcha o\'quvchilar</option>';
-        d.users.filter(u => u.role === 'student').forEach(s => {
-          sel.innerHTML += `<option value="${s.id}">${s.name}</option>`;
-        });
-        let h = '';
-        if (!d.tasks.length) { h = `<div class="empty"><div class="ei">📭</div><p>Hali vazifalar yo'q</p></div>`; }
-        else {
-          [...d.tasks].sort((a, b) => new Date(b.ca) - new Date(a.ca)).forEach(t => {
-            const who = t.who === 'all' ? 'Barcha' : (d.users.find(u => u.id === parseInt(t.who))?.name || '?');
-            const done = t.subs && t.subs.length > 0;
-            h += `<div class="task-c">
-          <div class="task-hd">
-            <div><div class="task-title">${t.title}</div>
-              <div class="task-sub">👤 ${who} &nbsp;|&nbsp; 🪙 ${t.coins} coin &nbsp;|&nbsp; 📅 ${fmtDate(new Date(t.ca))}</div>
-            </div>
-            <span class="badge2 ${done ? 'b-green' : 'b-yellow'}">${done ? '✅ Topshirildi' : '⏳ Kutilmoqda'}</span>
-          </div>
-          <div class="task-desc">${t.desc || ''}</div>
-          <div class="task-ft">
-            <div style="display:flex;flex-wrap:wrap;gap:8px">
-              ${done ? t.subs.map(sub => {
-              const stu = d.users.find(u => u.id === sub.sid);
-              return `<button class="btn btn-ghost btn-sm" onclick="viewPhoto('${t.id}',${sub.sid})">📸 ${stu ? stu.name : '?'}</button>`;
-            }).join('') : '<span style="color:var(--muted);font-size:13px">Hali topshirilmagan</span>'}
-            </div>
-            <button class="btn btn-danger btn-sm" onclick="delTask('${t.id}')">🗑️</button>
-          </div>
-        </div>`;
-          });
+        mediaItems.unshift(item);
+        loaded++;
+        if (loaded === files.length) {
+          saveToStorage();
+          renderGallery();
+          showToast(`${files.length} ta fayl yuklandi`, 'success');
         }
-        document.getElementById('vazifalar-body').innerHTML = h;
-      } else {
-        btn.style.display = 'none';
-        const mine = d.tasks.filter(t => t.who === 'all' || parseInt(t.who) === ME.id);
-        let h = '';
-        if (!mine.length) { h = `<div class="empty"><div class="ei">📭</div><p>Hali vazifalar yo'q</p></div>`; }
-        else {
-          [...mine].sort((a, b) => new Date(b.ca) - new Date(a.ca)).forEach(t => {
-            const mySub = t.subs?.find(s => s.sid === ME.id);
-            h += `<div class="task-c">
-          <div class="task-hd">
-            <div><div class="task-title">${t.title}</div>
-              <div class="task-sub">🪙 ${t.coins} coin &nbsp;|&nbsp; 📅 ${fmtDate(new Date(t.ca))}</div>
-            </div>
-            <span class="badge2 ${mySub ? 'b-green' : 'b-yellow'}">${mySub ? '✅ Topshirildi' : '⏳ Bajarilmagan'}</span>
-          </div>
-          <div class="task-desc">${t.desc || ''}</div>
-          <div class="task-ft">
-            ${mySub ?
-                `<button class="btn btn-ghost btn-sm" onclick="viewPhoto('${t.id}',${ME.id})">📸 Rasmimni ko'rish</button>`
-                : `<button class="btn btn-primary btn-sm" onclick="openSub('${t.id}')">📸 Rasm yuklash</button>`
-              }
-          </div>
-        </div>`;
-          });
-        }
-        document.getElementById('vazifalar-body').innerHTML = h;
-      }
-    }
-    function addTask() {
-      const title = document.getElementById('t-title').value.trim();
-      const desc = document.getElementById('t-desc').value.trim();
-      const who = document.getElementById('t-who').value;
-      const coins = parseInt(document.getElementById('t-coins').value) || 0;
-      if (!title) { toast('Sarlavha kiriting!', 'err'); return }
-      const d = db();
-      d.tasks.push({ id: Date.now().toString(), title, desc, who, coins, ca: new Date().toISOString(), subs: [] });
-      save(d); closeM('m-task');
-      toast('✅ Vazifa qo\'shildi!', 'ok'); rVazifalar();
-    }
-    function delTask(id) {
-      const d = db(); d.tasks = d.tasks.filter(t => t.id !== id); save(d);
-      toast('🗑️ Vazifa o\'chirildi', 'info'); rVazifalar();
-    }
-    function openSub(tid) {
-      SUB_TID = tid;
-      const d = db(); const t = d.tasks.find(x => x.id === tid);
-      document.getElementById('sub-ti').textContent = t ? t.title : '';
-      document.getElementById('sub-file').value = '';
-      document.getElementById('sub-prev').style.display = 'none';
-      openM('m-submit');
-    }
-    function prevPhoto(inp) {
-      const f = inp.files[0]; if (!f) return;
-      const r = new FileReader();
-      r.onload = e => { const p = document.getElementById('sub-prev'); p.src = e.target.result; p.style.display = 'block' };
-      r.readAsDataURL(f);
-    }
-    function submitTask() {
-      const inp = document.getElementById('sub-file');
-      if (!inp.files[0]) { toast('Rasm tanlang!', 'err'); return }
-      const r = new FileReader();
-      r.onload = e => {
-        const d = db();
-        const ti = d.tasks.findIndex(t => t.id === SUB_TID); if (ti < 0) return;
-        if (!d.tasks[ti].subs) d.tasks[ti].subs = [];
-        d.tasks[ti].subs = d.tasks[ti].subs.filter(s => s.sid !== ME.id);
-        d.tasks[ti].subs.push({ sid: ME.id, photo: e.target.result, at: new Date().toISOString() });
-        const coins = d.tasks[ti].coins;
-        if (coins > 0) {
-          const ui = d.users.findIndex(u => u.id === ME.id);
-          d.users[ui].coins += coins;
-        }
-        save(d); closeM('m-submit');
-        updateSidebar();
-        toast(`✅ Topshirildi!${coins > 0 ? ' +' + coins + ' 🪙 coin!' : ''}`, 'gold');
-        rVazifalar();
       };
-      r.readAsDataURL(inp.files[0]);
-    }
-    function viewPhoto(tid, sid) {
-      const d = db();
-      const t = d.tasks.find(x => x.id === tid);
-      const sub = t?.subs?.find(s => s.sid === sid);
-      const stu = d.users.find(u => u.id === sid);
-      if (!sub) { toast('Rasm topilmadi', 'err'); return }
-      document.getElementById('photo-body').innerHTML = `
-    <p style="color:var(--muted2);font-size:13px;margin-bottom:12px">👤 ${stu?.name || '?'} &nbsp;|&nbsp; 📅 ${fmtDate(new Date(sub.at))}</p>
-    <img src="${sub.photo}" style="max-width:100%;border-radius:12px;display:block">`;
-      openM('m-photo');
-    }
-
-    // ══════════════════════════════════
-    //  O'QUVCHILAR
-    // ══════════════════════════════════
-    function rOquvchilar() {
-      const d = db();
-      const studs = d.users.filter(u => u.role === 'student');
-      let h = `<div class="stats">
-    <div class="stat"><div class="si">👥</div><div class="sv">${studs.length}</div><div class="sl">Jami o'quvchilar</div></div>
-    <div class="stat"><div class="si">🪙</div><div class="sv">${studs.reduce((s, u) => s + u.coins, 0)}</div><div class="sl">Umumiy coinlar</div></div>
-  </div>
-  <div class="card"><table class="tbl"><thead><tr><th>#</th><th>Ism</th><th>Username</th><th>Coinlar</th><th>Amallar</th></tr></thead><tbody>`;
-      studs.forEach((s, i) => {
-        h += `<tr>
-      <td style="color:var(--muted)">${i + 1}</td>
-      <td><div style="display:flex;align-items:center;gap:10px">
-        <div class="u-av" style="width:30px;height:30px;font-size:12px">${s.name[0]}</div>${s.name}
-      </div></td>
-      <td style="color:var(--muted2)">@${s.username}</td>
-      <td><span style="color:var(--gold);font-weight:700">🪙 ${s.coins}</span></td>
-      <td><div style="display:flex;gap:7px">
-        <button class="btn btn-ghost btn-sm" onclick="openGC(${s.id})">🪙 Coin</button>
-        <button class="btn btn-danger btn-sm" onclick="delStudent(${s.id})">🗑️</button>
-      </div></td>
-    </tr>`;
-      });
-      h += `</tbody></table></div>`;
-      document.getElementById('oquvchilar-body').innerHTML = h;
-    }
-    function addStudent() {
-      const name = document.getElementById('s-name').value.trim();
-      const user = document.getElementById('s-user').value.trim();
-      const pass = document.getElementById('s-pass').value;
-      if (!name || !user || !pass) { toast('Barcha maydonlarni to\'ldiring!', 'err'); return }
-      const d = db();
-      if (d.users.find(u => u.username === user)) { toast('Bu username band!', 'err'); return }
-      const nid = Math.max(...d.users.map(u => u.id)) + 1;
-      d.users.push({ id: nid, name, username: user, password: pass, role: 'student', coins: 0 });
-      save(d); closeM('m-student');
-      toast(`✅ ${name} qo'shildi!`, 'ok'); rOquvchilar();
-    }
-    function delStudent(id) {
-      if (!confirm('O\'quvchini o\'chirmoqchimisiz?')) return;
-      const d = db(); d.users = d.users.filter(u => u.id !== id); save(d);
-      toast('🗑️ O\'quvchi o\'chirildi', 'info'); rOquvchilar();
-    }
-    function openGC(uid) {
-      GC_UID = uid;
-      const d = db(); const u = d.users.find(x => x.id === uid);
-      document.getElementById('gc-name').textContent = `${u.name} — 🪙 ${u.coins} coin`;
-      document.getElementById('gc-amt').value = '';
-      openM('m-coins');
-    }
-    function giveCoins() {
-      const amt = parseInt(document.getElementById('gc-amt').value);
-      if (!amt || amt <= 0) { toast('Miqdor kiriting!', 'err'); return }
-      const d = db();
-      const i = d.users.findIndex(u => u.id === GC_UID);
-      d.users[i].coins += amt; save(d);
-      closeM('m-coins');
-      toast(`✅ ${d.users[i].name} ga 🪙 ${amt} coin berildi!`, 'gold');
-      rOquvchilar();
-    }
-
-    // ══════════════════════════════════
-    //  MARKET
-    // ══════════════════════════════════
-    function rMarket() {
-      const d = db();
-      const isAdmin = ME.role === 'admin';
-      document.getElementById('add-item-btn').style.display = isAdmin ? 'flex' : 'none';
-      refreshMe();
-      let h = `<div class="mkt-grid">`;
-      d.market.forEach(item => {
-        const canBuy = !isAdmin && ME.coins >= item.price && item.stock > 0;
-        h += `<div class="mkt-card">
-      <span class="mkt-icon">${item.icon}</span>
-      <div class="mkt-name">${item.name}</div>
-      <div class="mkt-price">🪙 ${item.price}</div>
-      <div class="mkt-stock">Omborda: ${item.stock} ta</div>
-      ${isAdmin
-            ? `<button class="btn btn-danger btn-sm" style="width:100%" onclick="delItem(${item.id})">🗑️ O'chirish</button>`
-            : `<button class="btn ${canBuy ? 'btn-gold' : 'btn-ghost'}" style="width:100%"
-            onclick="buyItem(${item.id})" ${!canBuy ? 'disabled' : ''}>
-            ${item.stock === 0 ? '❌ Tugagan' : canBuy ? '🛒 Sotib olish' : '🪙 Yetarli coin yo\'q'}
-          </button>`
-          }
-    </div>`;
-      });
-      h += `</div>`;
-      // My purchases for students
-      if (!isAdmin) {
-        const myBuy = d.purchases.filter(p => p.uid === ME.id);
-        if (myBuy.length) {
-          h += `<div class="card" style="margin-top:22px"><div class="card-ti">Mening xaridlarim</div>
-        <table class="tbl"><thead><tr><th>Mahsulot</th><th>Narxi</th><th>Sana</th></tr></thead><tbody>`;
-          myBuy.slice().reverse().forEach(p => {
-            const item = d.market.find(m => m.id === p.iid);
-            h += `<tr>
-          <td>${item ? item.icon + ' ' + item.name : '?'}</td>
-          <td style="color:var(--gold)">🪙 ${p.price}</td>
-          <td style="color:var(--muted)">${fmtDate(new Date(p.dt))}</td>
-        </tr>`;
-          });
-          h += `</tbody></table></div>`;
-        }
-      }
-      document.getElementById('market-body').innerHTML = h;
-    }
-    function buyItem(iid) {
-      const d = db();
-      const item = d.market.find(m => m.id === iid);
-      const ui = d.users.findIndex(u => u.id === ME.id);
-      if (!item || item.stock <= 0) { toast('Mahsulot tugagan!', 'err'); return }
-      if (d.users[ui].coins < item.price) { toast('Yetarli coin yo\'q!', 'err'); return }
-      d.users[ui].coins -= item.price;
-      d.market.find(m => m.id === iid).stock -= 1;
-      d.purchases.push({ uid: ME.id, iid: item.id, price: item.price, dt: new Date().toISOString() });
-      save(d); updateSidebar();
-      toast(`🎉 ${item.icon} ${item.name} sotib olindi!`, 'gold'); rMarket();
-    }
-    function addItem() {
-      const name = document.getElementById('i-name').value.trim();
-      const icon = document.getElementById('i-icon').value.trim() || '📦';
-      const price = parseInt(document.getElementById('i-price').value);
-      const stock = parseInt(document.getElementById('i-stock').value) || 5;
-      if (!name || !price) { toast('Nomi va narxini kiriting!', 'err'); return }
-      const d = db();
-      const nid = Math.max(...d.market.map(m => m.id), 0) + 1;
-      d.market.push({ id: nid, name, icon, price, stock });
-      save(d); closeM('m-item');
-      toast('✅ Mahsulot qo\'shildi!', 'ok'); rMarket();
-    }
-    function delItem(iid) {
-      const d = db(); d.market = d.market.filter(m => m.id !== iid); save(d);
-      toast('🗑️ O\'chirildi', 'info'); rMarket();
-    }
-
-    // ══════════════════════════════════
-    //  BARABAN (SPIN WHEEL)
-    // ══════════════════════════════════
-    const VALS = [0, 1, 10, 50, 100, 200, 500, 1000];
-    const COLS = ['#ef4444', '#64748b', '#10b981', '#f59e0b', '#6366f1', '#ec4899', '#8b5cf6', '#f97316'];
-    const MAX_SP = 3;
-    const MAX_C = 150;
-
-    function rBaraban() {
-      const d = db(); const today = tStr();
-      const mySp = d.spinHistory.filter(s => s.uid === ME.id && dStr(new Date(s.ts)) === today);
-      const myC = mySp.reduce((s, x) => s + x.amt, 0);
-      const left = MAX_SP - mySp.length;
-      const cleft = MAX_C - myC;
-
-      document.getElementById('spin-ct').textContent = `🎰 Bugun qolgan aylanishlar: ${left}/${MAX_SP}`;
-      document.getElementById('spin-cm').textContent = `🪙 Bugungi yutuq: ${myC}/${MAX_C} coin`;
-
-      const btn = document.getElementById('spin-btn');
-      if (ME.role === 'student' && (left <= 0 || cleft <= 0)) {
-        btn.disabled = true; btn.innerHTML = left <= 0 ? '❌ Bugun tugadi' : '❌ Limit to\'ldi';
-      } else {
-        btn.disabled = false; btn.innerHTML = '🎰 AYLANTIR!';
-      }
-
-      drawW();
-
-      // History
-      let hh = `<h3 style="margin-bottom:12px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.7px">Bugungi natijalar</h3>`;
-      if (!mySp.length) hh += `<p style="color:var(--muted);text-align:center;font-size:13px">Bugun hali aylantirilmagan</p>`;
-      else mySp.slice().reverse().forEach(s => {
-        hh += `<div class="hist-row">
-      <span style="color:var(--muted);font-size:13px">${fmtTime(new Date(s.ts))}</span>
-      <span style="color:${s.amt > 0 ? 'var(--gold)' : 'var(--muted)'};font-weight:700;font-size:14px">${s.amt > 0 ? '+' : ''}${s.amt} 🪙</span>
-    </div>`;
-      });
-      document.getElementById('spin-hist').innerHTML = hh;
-    }
-
-    function drawW(rot) {
-      const canvas = document.getElementById('wheelCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const cx = canvas.width / 2, cy = canvas.height / 2, R = cx - 12;
-      const n = VALS.length, seg = (2 * Math.PI) / n;
-      const r = (rot !== undefined) ? rot : WROT;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Outer ring glow
-      const grd = ctx.createRadialGradient(cx, cy, R - 5, cx, cy, R + 12);
-      grd.addColorStop(0, 'rgba(59,130,246,0)'); grd.addColorStop(1, 'rgba(59,130,246,0.15)');
-      ctx.beginPath(); ctx.arc(cx, cy, R + 12, 0, Math.PI * 2); ctx.fillStyle = grd; ctx.fill();
-
-      for (let i = 0; i < n; i++) {
-        const sa = r + i * seg - Math.PI / 2;
-        const ea = sa + seg;
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, sa, ea); ctx.closePath();
-        ctx.fillStyle = COLS[i]; ctx.fill();
-        ctx.strokeStyle = '#080c14'; ctx.lineWidth = 2.5; ctx.stroke();
-
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(sa + seg / 2);
-        ctx.textAlign = 'right'; ctx.fillStyle = '#fff';
-        ctx.font = `bold ${VALS[i] >= 1000 ? '12' : '15'}px DM Sans,Arial`;
-        ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 6;
-        const lbl = VALS[i] === 0 ? '😔 0' : `${VALS[i]}🪙`;
-        ctx.fillText(lbl, R - 12, 5); ctx.restore();
-      }
-
-      // Center
-      ctx.beginPath(); ctx.arc(cx, cy, 26, 0, Math.PI * 2);
-      const cg = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, 26);
-      cg.addColorStop(0, '#1e3a5f'); cg.addColorStop(1, '#080c14');
-      ctx.fillStyle = cg; ctx.fill();
-      ctx.strokeStyle = COLS[Math.floor(((r % (Math.PI * 2)) + (Math.PI * 2)) % (Math.PI * 2) / (Math.PI * 2) * n) % n] || '#3b82f6';
-      ctx.lineWidth = 3; ctx.stroke();
-      ctx.fillStyle = '#fff'; ctx.font = 'bold 11px DM Sans,Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 4;
-      ctx.fillText('GO!', cx, cy);
-    }
-
-    function doSpin() {
-      if (SPINNING) return;
-      const d = db(); const today = tStr();
-      const mySp = d.spinHistory.filter(s => s.uid === ME.id && dStr(new Date(s.ts)) === today);
-      const myC = mySp.reduce((s, x) => s + x.amt, 0);
-      if (ME.role === 'student') {
-        if (mySp.length >= MAX_SP) { toast('Bugun 3 marta aylantirib bo\'ldingiz!', 'err'); return }
-        if (myC >= MAX_C) { toast('Bugun 150 coindan yutib bo\'ldingiz!', 'err'); return }
-      }
-
-      const ri = Math.floor(Math.random() * VALS.length);
-      const n = VALS.length, seg = (2 * Math.PI) / n;
-
-      // Calculate end rotation so pointer (at -PI/2) aligns with middle of segment ri
-      // Middle of ri: endRot + (ri+0.5)*seg - PI/2 = -PI/2 + 2kPI
-      // endRot = 2kPI - (ri+0.5)*seg
-      const normCur = ((WROT % (Math.PI * 2)) + (Math.PI * 2)) % (Math.PI * 2);
-      const targetAngle = (Math.PI * 2) - ((ri + 0.5) * seg) % (Math.PI * 2);
-      let delta = ((targetAngle - normCur) + Math.PI * 2) % (Math.PI * 2);
-      const total = Math.PI * 2 * (4 + Math.floor(Math.random() * 3)) + delta;
-
-      SPINNING = true;
-      document.getElementById('spin-btn').disabled = true;
-      document.getElementById('spin-res').innerHTML = '';
-
-      const start = WROT, end = WROT + total, dur = 4200, t0 = performance.now();
-      function ease(t) { return 1 - Math.pow(1 - t, 4.5) }
-      function frame(now) {
-        const el = now - t0, t = Math.min(el / dur, 1);
-        WROT = start + total * ease(t);
-        drawW();
-        if (t < 1) { requestAnimationFrame(frame); }
-        else {
-          WROT = end; drawW(); SPINNING = false;
-          // Calculate actual earned coins
-          const d2 = db();
-          const sp2 = d2.spinHistory.filter(s => s.uid === ME.id && dStr(new Date(s.ts)) === today);
-          const c2 = sp2.reduce((s, x) => s + x.amt, 0);
-          let earned = VALS[ri];
-          if (ME.role === 'student') earned = Math.min(earned, MAX_C - c2);
-          if (earned < 0) earned = 0;
-
-          d2.spinHistory.push({ uid: ME.id, amt: earned, ts: new Date().toISOString() });
-          if (earned > 0) {
-            const ui = d2.users.findIndex(u => u.id === ME.id);
-            d2.users[ui].coins += earned;
-            if (ME.role === 'student') {
-              d2.notifications.push({ id: Date.now().toString(), msg: `🎰 ${ME.name} barabandan ${earned} coin yutdi!`, read: false, ts: new Date().toISOString() });
-            }
-          }
-          save(d2); updateSidebar(); buildNav();
-
-          const res = document.getElementById('spin-res');
-          if (earned > 0) {
-            res.innerHTML = `<div class="spin-win">+${earned} 🪙</div><div style="color:var(--muted2);font-size:14px;margin-top:5px">Tabriklaymiz!</div>`;
-            toast(`🎉 +${earned} coin yutdingiz!`, 'gold');
-          } else {
-            res.innerHTML = `<div style="font-size:32px">😔</div><div style="color:var(--muted2);font-size:14px;margin-top:5px">Bu safar coin yo'q</div>`;
-            toast('😔 Omadingiz keyingisida!', 'info');
-          }
-          rBaraban();
-        }
-      }
-      requestAnimationFrame(frame);
-    }
-
-    // ══════════════════════════════════
-    //  BILDIRISHNOMALAR
-    // ══════════════════════════════════
-    function rNotif() {
-      const d = db();
-      const ns = [...d.notifications].sort((a, b) => new Date(b.ts) - new Date(a.ts));
-      // Mark all read
-      d.notifications = d.notifications.map(n => ({ ...n, read: true }));
-      save(d); buildNav();
-      let h = '';
-      if (!ns.length) { h = `<div class="empty"><div class="ei">🔔</div><p>Hali bildirishnomalar yo'q</p></div>`; }
-      else ns.forEach(n => {
-        h += `<div class="notif-i ${n.read ? '' : 'unread'}">
-      ${!n.read ? '<div class="notif-dot"></div>' : '<span style="width:8px;flex-shrink:0"></span>'}
-      <div style="flex:1"><div class="notif-txt">${n.msg}</div>
-        <div class="notif-time">${fmtDate(new Date(n.ts))} — ${fmtTime(new Date(n.ts))}</div>
-      </div>
-    </div>`;
-      });
-      document.getElementById('notif-body').innerHTML = h;
-    }
-    function markAllRead() {
-      const d = db(); d.notifications = d.notifications.map(n => ({ ...n, read: true }));
-      save(d); buildNav(); rNotif(); toast('✓ Barchasini o\'qilgan', 'ok');
-    }
-
-    // ══════════════════════════════════
-    //  SOZLAMALAR
-    // ══════════════════════════════════
-    function rSozlamalar() {
-      const d = db(); const u = d.users.find(x => x.id === ME.id);
-      document.getElementById('sozlamalar-body').innerHTML = `
-    <div class="card settings-card">
-      <div class="profile-pic">${u.name[0].toUpperCase()}</div>
-      <div class="card-ti">Ma'lumotlarni tahrirlash</div>
-      <div class="fl"><label>To'liq ism</label><input type="text" id="e-name" value="${u.name}"></div>
-      <div class="fl"><label>Username</label><input type="text" id="e-user" value="${u.username}"></div>
-      <div class="fl"><label>Yangi parol (bo'sh qolsa o'zgarmaydi)</label><input type="password" id="e-pass" placeholder="Yangi parol..."></div>
-      <div class="m-row" style="margin-top:6px">
-        <button class="btn btn-gold" style="flex:1" onclick="saveSettings()">💾 Saqlash</button>
-        <button class="btn btn-danger" style="flex:1" onclick="logout()">🚪 Chiqish</button>
-      </div>
-    </div>`;
-    }
-    function saveSettings() {
-      const name = document.getElementById('e-name').value.trim();
-      const user = document.getElementById('e-user').value.trim();
-      const pass = document.getElementById('e-pass').value;
-      if (!name || !user) { toast('Ism va username bo\'sh bo\'lmasin!', 'err'); return }
-      const d = db();
-      if (d.users.find(u => u.username === user && u.id !== ME.id)) { toast('Bu username band!', 'err'); return }
-      const i = d.users.findIndex(u => u.id === ME.id);
-      d.users[i].name = name; d.users[i].username = user;
-      if (pass) d.users[i].password = pass;
-      save(d); updateSidebar();
-      toast('✅ Ma\'lumotlar saqlandi!', 'ok');
-    }
-
-    // ══════════════════════════════════
-    //  MODAL HELPERS
-    // ══════════════════════════════════
-    function openM(id) { document.getElementById(id).classList.add('show') }
-    function closeM(id) { document.getElementById(id).classList.remove('show') }
-    document.querySelectorAll('.overlay').forEach(o => {
-      o.addEventListener('click', e => { if (e.target === o) o.classList.remove('show') });
+      reader.readAsDataURL(file);
     });
+    e.target.value = '';
+  }
 
-    // ══════════════════════════════════
-    //  TOAST
-    // ══════════════════════════════════
-    function toast(msg, type = 'info') {
-      const c = document.getElementById('toasts');
-      const t = document.createElement('div');
-      const cls = { ok: 't-ok', err: 't-err', info: 't-info', gold: 't-gold' };
-      const ic = { ok: '✅', err: '❌', info: 'ℹ️', gold: '🪙' };
-      t.className = `toast ${cls[type] || 't-info'}`;
-      t.innerHTML = `<span>${ic[type] || 'ℹ️'}</span><span>${msg}</span>`;
-      c.appendChild(t);
-      setTimeout(() => { t.style.animation = 'toast-in .3s ease reverse'; setTimeout(() => t.remove(), 300) }, 3200);
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/1048576).toFixed(1) + ' MB';
+  }
+
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    let filtered = mediaItems;
+
+    if (activeFilter !== 'all') filtered = filtered.filter(i => i.type === activeFilter);
+    if (searchQuery) filtered = filtered.filter(i => i.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    document.getElementById('mediaCount').textContent = filtered.length + ' TA ELEMENT';
+    document.getElementById('statsLabel').textContent = mediaItems.length + ' ta media';
+
+    if (!filtered.length) {
+      grid.innerHTML = `<div class="empty-state">
+        <span class="empty-icon">${searchQuery ? '🔍' : '✨'}</span>
+        <h3>${searchQuery ? 'Topilmadi' : 'Galereya bo\'sh'}</h3>
+        <p>${searchQuery ? '"' + searchQuery + '" bo\'yicha natija yo\'q' : 'Rasm va videolar qo\'shish uchun yuqoriga tashlang'}</p>
+      </div>`;
+      return;
     }
 
-    // ══════════════════════════════════
-    //  UTILS
-    // ══════════════════════════════════
-    function tStr() { const d = new Date(); return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}` }
-    function dStr(d) { return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}` }
-    function p2(n) { return String(n).padStart(2, '0') }
-    function fmtDate(d) { return `${p2(d.getDate())}.${p2(d.getMonth() + 1)}.${d.getFullYear()}` }
-    function fmtTime(d) { return `${p2(d.getHours())}:${p2(d.getMinutes())}` }
-  </script>
-</body>
+    grid.innerHTML = filtered.map((item, idx) => `
+      <div class="media-card" style="animation-delay:${idx * 0.04}s" data-id="${item.id}">
+        ${item.type === 'video'
+          ? `<video class="media-thumb-video" src="${item.data}" muted preload="metadata"></video>`
+          : `<img class="media-thumb" src="${item.data}" alt="${item.name}" loading="lazy">`
+        }
+        <div class="media-badge ${item.type === 'video' ? 'badge-video' : 'badge-image'}">
+          ${item.type === 'video' ? '▶ Video' : '⬛ Rasm'}
+        </div>
+        <div class="card-actions">
+          <button class="action-btn btn-view" onclick="viewItem('${item.id}')" title="Ko'rish">👁</button>
+          <button class="action-btn btn-download" onclick="downloadItem('${item.id}')" title="Yuklab olish">⬇</button>
+          <button class="action-btn btn-delete" onclick="deleteItem('${item.id}')" title="O'chirish">✕</button>
+        </div>
+        <div class="card-info">
+          <div class="card-name">${item.name}</div>
+          <div class="card-meta">
+            <span class="card-size">${item.size}</span>
+            <span class="card-date">${item.date}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
 
+  function viewItem(id) {
+    const item = mediaItems.find(i => i.id == id);
+    if (!item) return;
+
+    const lb = document.getElementById('lightbox');
+    const content = document.getElementById('lightboxContent');
+    document.getElementById('lightboxName').textContent = item.name;
+
+    if (item.type === 'video') {
+      content.innerHTML = `<video class="lightbox-media" src="${item.data}" controls autoplay></video>`;
+    } else {
+      content.innerHTML = `<img class="lightbox-media" src="${item.data}" alt="${item.name}">`;
+    }
+
+    lb.classList.add('active');
+  }
+
+  function downloadItem(id) {
+    const item = mediaItems.find(i => i.id == id);
+    if (!item) return;
+    const a = document.createElement('a');
+    a.href = item.data;
+    a.download = item.name;
+    a.click();
+    showToast('Yuklab olindi: ' + item.name, 'success');
+  }
+
+  function deleteItem(id) {
+    const item = mediaItems.find(i => i.id == id);
+    if (!item) return;
+    mediaItems = mediaItems.filter(i => i.id != id);
+    saveToStorage();
+    renderGallery();
+    showToast(item.name + ' o\'chirildi', 'error');
+  }
+
+  // Lightbox close
+  document.getElementById('lightboxClose').onclick = closeLightbox;
+  document.getElementById('lightbox').onclick = e => { if (e.target === e.currentTarget) closeLightbox(); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('active');
+    const content = document.getElementById('lightboxContent');
+    const video = content.querySelector('video');
+    if (video) video.pause();
+    content.innerHTML = '';
+  }
+
+  // Filters
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderGallery();
+    });
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    renderGallery();
+  });
+
+  // Toast
+  function showToast(msg, type = 'success') {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    document.getElementById('toastIcon').textContent = type === 'success' ? '✓' : '✕';
+    toast.className = 'toast show ' + type;
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // Init
+  loadFromStorage();
+</script>
+</body>
 </html>
